@@ -10,7 +10,7 @@ const Home = () => {
       <div>
         <MainIntro />
       </div>
-      <div className="pt-96 mt-20 ">
+      <div className=" mt-20 ">
         <p className="text-center font-bold text-2xl border-b-2 mx-20 border-black p-10">
           Subscription
         </p>
@@ -24,7 +24,7 @@ const Home = () => {
         <MainBox />
         <MainBox />
       </div>
-      <div className='absolute top-12 w-full'>
+      <div className='absolute bottom-1 w-full'>
       <img src={footer} alt='footer' className='w-full'/>
     </div>
       </div>

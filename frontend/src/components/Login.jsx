@@ -13,7 +13,7 @@ const Login = () => {
         <Link to="/Updatepassword" className='mr-6'>Forget Password ? </Link>
         </div>
         
-         <div className= " flex flex-col justify-center items-center gap-10">
+         <div className= " flex flex-col justify-center items-center gap-7">
             <Link to="/home">
          <button className='border-2 bg-purple-900 p-2 px-10 text-gray-300 rounded-full align-text-center'>Sign In</button>
             </Link>

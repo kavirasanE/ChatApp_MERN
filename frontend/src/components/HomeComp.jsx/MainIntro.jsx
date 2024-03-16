@@ -12,10 +12,10 @@ const MainIntro = () => {
       <div className="">
         <img src={Email} alt="gmail" className="absolute top-20 left-1/4 " />
         <img src={Post} alt="gmail" className="absolute top-20 left-1/2 ml-60"/>
-        <div className="flex flex-col relative  top-64 ml-96">
-        <p className=" text-3xl font-bold ml-48">Start Your 2-Month Free Trail</p>
+        <div className="flex flex-col  top-64 ml-96">
+        <p className=" text-3xl font-bold mt-48 ">Start Your 2-Month Free Trail</p>
         <Link to="/Add">
-         <button className=" border-2 ml-80 bg-purple-900 p-4 px-10 mx-24 my-5 text-gray-300 text-xl font-semibold rounded-full">Try Now</button>
+         <button className=" border-2 ml- bg-purple-900 p-4 px-10 mx-24 my-5 text-gray-300 text-xl font-semibold rounded-full">Try Now</button>
         </Link>
         </div>
         

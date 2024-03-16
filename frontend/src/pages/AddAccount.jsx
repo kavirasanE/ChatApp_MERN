@@ -17,8 +17,8 @@ const AddAccount = () => {
           <img src={oulook} alt="gmail" width={100} className="" />
         </div>
       </div>
-      <div className='absolute mt-64 w-full'>
-      <img src={footer} alt='footer' className="w-full h-96 " />
+      <div className='w-full'>
+      <img src={footer} alt='footer' className="w-full h-72" />
     </div>
     </div>
   );
