@@ -9,7 +9,7 @@ import UserTyping from "../assets/User Typing Using Typewriter.png";
 
 const InboxImage = () => {
   return (
-    <div className="relative ml-24 w-1/2 h-96">
+    <div className="relative md:ml-24 md:w-1/2 h-96 ">
       <img src={gmail} alt="gmail" className="ml-40 mb-10 top-0 absolute" />
       <img src={yahoo} alt="gmail" className="absolute top-1/4" />
       <img src={UserTyping} alt="gmail" className="absolute top-1/4 left-36" />
