@@ -23,7 +23,7 @@ const MainIntro = () => {
         <img
           src={oulook}
           alt="gmail"
-          className="absolute top-96 left-1/2 md:ml-60  w-20 md:w-36"
+          className="absolute top-80 left-1/2 md:ml-60  w-20 md:w-36"
         />
       </div>
     </div>
