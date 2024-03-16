@@ -9,7 +9,10 @@ const SignIn = () => {
        <Navbar/>
        <div className=" flex md:justify-between md:items-between items-center justify-center ">
        <Login/>
+       <div className=' md:w-1/2 md:mr-36'>
        <InboxImage />
+       </div>
+       
       </div>
       <Footer/>
     </div>

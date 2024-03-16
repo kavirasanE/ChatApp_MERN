@@ -7,10 +7,11 @@ const SignUp = () => {
   return (
     <div>
       <Navbar />
-      
-       <div className="flex ">
+      <div className=" flex md:justify-between md:items-between items-center justify-center ">
        <Register/>
-       <InboxImage/>
+       <div className=' md:w-1/2 md:mr-36'>
+       <InboxImage />
+       </div>
       </div>
       <Footer/>
     </div>
