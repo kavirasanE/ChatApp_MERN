@@ -10,21 +10,20 @@ const MainIntro = () => {
   return (
     <div>
       <div className="">
-        <img src={Email} alt="gmail" className="absolute top-20 left-1/4 " />
-        <img src={Post} alt="gmail" className="absolute top-20 left-1/2 ml-60"/>
-        <div className="flex flex-col  top-64 ml-96">
+        <img src={Email} alt="gmail" className="absolute top-20 left-1/4 w-20 md:w-36 " />
+        <img src={Post} alt="gmail" className="absolute top-20 left-1/2 md:ml-60  w-20 md:w-36"/>
+        <div className="flex flex-col top-64 ">
         <p className=" text-3xl font-bold mt-48 ">Start Your 2-Month Free Trail</p>
         <Link to="/Add">
-         <button className=" border-2 ml- bg-purple-900 p-4 px-10 mx-24 my-5 text-gray-300 text-xl font-semibold rounded-full">Try Now</button>
+         <button className=" border-2 bg-purple-900 p-4 px-10 md:mx-24 my-2 md:my-5 text-gray-300 text-xl font-semibold rounded-full">Try Now</button>
         </Link>
         </div>
-        
-        <img src={yahoo} alt="gmail" className="absolute top-40 ml-32" />
-        <img src={gmail} alt="gmail" className="ml-64 top-96 absolute" />
+        <img src={yahoo} alt="gmail" className="absolute top-24 md:top-40 left-2 xl:left-24 w-20 md:w-36" />
+        <img src={gmail} alt="gmail" className=" absolute top-36 md:top-96 left-24 w-20 md:w-36" />
         <img
           src={oulook}
           alt="gmail"
-          className="absolute top-96 right-48 ml-9"
+          className="absolute top-96 left-1/2 md:ml-60  w-20 md:w-36"
         />
       </div>
     </div>
@@ -32,3 +31,4 @@ const MainIntro = () => {
 };
 
 export default MainIntro;
+// absolute md:top-96 md:left-96  left-52 top-80 w-20 md:w-36

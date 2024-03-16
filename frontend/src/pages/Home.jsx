@@ -7,16 +7,16 @@ const Home = () => {
   return (
     <div>
       <MainNavbar />
-      <div>
+      <div className="flex justify-center items-center ">
         <MainIntro />
       </div>
-      <div className=" mt-20 ">
-        <p className="text-center font-bold text-2xl border-b-2 mx-20 border-black p-10">
+      <div className="mt-20 ">
+        <p className="text-center font-bold text-2xl border-b-2 md:mx-20 border-gray-500 mx-2 p-10">
           Subscription
         </p>
       </div>
       <div className="relative">
-      <div className="grid grid-cols-3 relative justify-center justify-items-center z-10">
+      <div className="grid md:grid-cols-3 g relative justify-center justify-items-center z-10">
         <MainBox />
         <MainBox />
         <MainBox />
