@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div className='absolute xl:-bottom-3 bottom-0  w-full'>
       <img src={footer}  alt="footer" className='w-full h-24'/>
-    </div>ad,mnfmndd
+    </div>
   )
 }
 
