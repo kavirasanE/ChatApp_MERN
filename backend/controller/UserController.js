@@ -2,7 +2,7 @@ const asyncHandler =require("express-async-handler")
 const User =require("../models/UserModel.js")
 const generateToken =require ("../config/generateToken.js")
 const registerUser = asyncHandler(async (req,res) => {
-      const {name ,email,password} =req.body;
+      const { name ,email,password } =req.body;
 
       if(!name || !email || !password){
         res.status(400) 
