@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../models/UserModel.js")
 const generateToken = require("../config/generateToken.js")
-const bcrypt =require ("bcrypt")
+const bcrypt = require("bcrypt")
 
 const registerUser = asyncHandler(async (req, res) => {
    const { name, email, password } = req.body;
@@ -10,7 +10,7 @@ const registerUser = asyncHandler(async (req, res) => {
       throw new Error("Please Enter all the fields");
    }
    const UserExists = await User.findOne({ email });
-   const hashedPassword = bcrypt.hash(password,10);
+   const hashedPassword = bcrypt.hashSync(password, 10);
    if (UserExists) {
       res.status(400);
       throw new Error("User already exists");
@@ -18,7 +18,7 @@ const registerUser = asyncHandler(async (req, res) => {
    const user = await User.create({
       name,
       email,
-      password:hashedPassword,
+      password: hashedPassword,
    })
 
    if (user) {
@@ -37,7 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const authUser = asyncHandler(async (req, res) => {
    const { email, password } = req.body;
    const emailExists = await User.findOne({ email });
-     const comparePassword = bcrypt.compare(password,emailExists.password);
+   const comparePassword = bcrypt.compare(password, emailExists.password);
    if (emailExists && comparePassword) {
       res.status(200).json({
          _id: emailExists.id,
@@ -45,6 +45,9 @@ const authUser = asyncHandler(async (req, res) => {
          password: emailExists.password,
          token: generateToken(emailExists._id)
       })
+   }
+   else {
+      res.status(400).send("this is not valid user")
    }
 
 })
