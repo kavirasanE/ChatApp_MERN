@@ -9,7 +9,7 @@ router.post("/",registerUser);
 
 router.post("/login",authUser);
 
-router.route("/").get(allUsers);
+router.route("/").get(validToken,allUsers);
 
 
 module.exports =router;
