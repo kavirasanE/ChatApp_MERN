@@ -1,28 +1,38 @@
-const expressAsyncHandler = require("express-async-handler")
+const asyncHandler = require("express-async-handler")
 const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv")
 
 dotenv.config();
 
-const validToken = expressAsyncHandler(async (req, res, next) => {
+const validToken = asyncHandler(async (req, res, next) => {
     let token;
     let authHeader = req.headers.Authorization || req.headers.authorization;
-    token = authHeader.split(" ")[1];
-
     if (authHeader && authHeader.startsWith("Bearer")) {
-        jwt.verify(token, process.env.KEY, (err, decoded) => {
-            if (err) {
-              res.status(400);
-              console.log("Error : your ae not authorized")
-            }
-            req.user =decoded.user;
+        try {
+            token = authHeader.split(" ")[1];
+            const decoded = jwt.verify(token, process.env.KEY);
+            req.user = await User.findById(decoded.id).select("-password");
             next();
-        });
-        if(!token){
+        }
+        // jwt.verify(token, process.env.KEY, (err, decoded) => {
+        //     if (err) {
+        //         res.status(400);
+        //         console.log("Error : your ae not authorized")
+        //     }
+        //     req.user = decoded.user;
+        //     next();
+        // });
+        catch (err) {
             res.status(400);
             console.log("you are not Authorized")
+        }
+        if(!token){
+            res.status(401);
+            throw new Error("Not authorized, no token")
         }
     }
 })
 
 module.exports = validToken;
+
+

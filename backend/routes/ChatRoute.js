@@ -1,7 +1,7 @@
 const express = require("express");
-
+// const { accessChat } =require ("../controller/ChatController");
 const router = express.Router();
 
-router.post("/");
+// router.post("/",accessChat)
 
-module.exports= router;
+module.exports= router
