@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, {  useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
+import { ChatContext } from '../Context/ChatProvider';
 const Login = () => {
 
   const [loginData, setLoginData] = useState({});
+  const {setUser} = useContext(ChatContext);
  const navigate =useNavigate();
 
   const getInput = (name, value) => {
@@ -14,8 +16,10 @@ const Login = () => {
   const handleLogin = async () => {
         axios.post("http://localhost:3000/api/user/login", loginData)
         .then((response) => {
+   setUser(response.data);
+   localStorage.setItem("userInfo",JSON.stringify(response.data))
           console.log(response.data);
-          navigate("/home")
+          navigate("/chat")
         }).catch((err) => {
           console.log(err);
         })

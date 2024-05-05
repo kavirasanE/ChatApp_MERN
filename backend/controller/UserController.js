@@ -41,6 +41,7 @@ const authUser = asyncHandler(async (req, res) => {
    if (emailExists && comparePassword) {
       res.status(200).json({
          _id: emailExists.id,
+         name:emailExists.name,
          email: emailExists.email,
          password: emailExists.password,
          token: generateToken(emailExists._id)
