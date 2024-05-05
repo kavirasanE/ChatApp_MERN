@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const chatModel = mongoose.Schema(
     {
         chatName: {
@@ -27,7 +26,7 @@ const chatModel = mongoose.Schema(
         },
     },
     {
-        timestamps: "true",
+        timestamps: true,
     },
 )
 
