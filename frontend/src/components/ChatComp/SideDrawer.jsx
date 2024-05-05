@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 import ChatLoading from './atomsChatCom/ChatLoading';
 import UserListItem from './atomsChatCom/UserListItem';
+import {Spinner} from "@chakra-ui/spinner"
 const SideDrawer = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -50,12 +51,16 @@ const SideDrawer = () => {
     try {
       setLoadingChat(true);
       const config = {
-        header: {
+        headers: {
           "Content-type": "application/json",
           Authorization: `Bearer ${user.token}`,
         }
       }
-      const { data } = await axios.post("http://localhost:3000/api/chat", { userId }, config);
+      const { data } = await axios.post("http://localhost:3000/api/chat",{ userId },config);
+
+      if(!chats.find((c) => c._id === data._id))
+        setChats([data,...chats])
+      console.log(chats);
       setSelectedChat(data);
       setLoadingChat(false);
 
@@ -116,6 +121,7 @@ const SideDrawer = () => {
                 </>
               ))
             )}
+            {loadingChat && <Spinner/>}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
