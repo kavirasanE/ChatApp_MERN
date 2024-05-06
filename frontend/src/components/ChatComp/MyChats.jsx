@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Box, Button, Stack, Text } from "@chakra-ui/react"
 import ChatLoading from './atomsChatCom/ChatLoading';
 import { getSender } from '../../config/ChatLogics';
+import GroupChatModal from "../ChatComp/atomsChatCom/GroupChatModal";
+
 const MyChats = () => {
   const { user, selectedChat, setSelectedChat, chats, setChats } = useContext(ChatContext);
   const [loggedUser, setLoggedUser] = useState();
@@ -30,15 +32,14 @@ const MyChats = () => {
     fetchChats();
   }, [])
 
-
-
   return (
     <>
       <Box d={{ base: selectedChat ? "none" : "flex", md: "flex" }} className='flex flex-col p-2 gap-4 items-center w-1/4 border-2 border-gray-400 rounded-lg'>
-      
         <Box className=' text-xl flex justify-between gap-3 items-center'>
           My Chats
+          <GroupChatModal>
           <Button className='flex '> New Group Chat</Button>
+          </GroupChatModal>
         </Box>
         <Box className=' overflow-hidden w-full'>
           {chats ? (

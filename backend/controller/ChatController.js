@@ -3,10 +3,13 @@ const asyncHandler = require("express-async-handler")
 const User = require("../models/UserModel.js")
 const accessChat = asyncHandler(async (req, res) => {
     const { userId } = req.body;
+    console.log("mainId" + req.user._id);
+    console.log("userId" + userId)
     if (!userId) {
         console.log("param not send");
         return res.status(400)
     }
+
 
     let isChat = await Chat.find({
         isGroupChat: false,
@@ -22,11 +25,11 @@ const accessChat = asyncHandler(async (req, res) => {
     });
     if (isChat.length > 0) {
         // res.send(isChat[0]);
-        res.send(isChat[0])
+        res.send(isChat[0]);
     } else {
         var chatData = {
             chatName: "sender",
-            isGroupChat: false,
+            isGroupChatfalse,
             users: [req.user._id, userId],
         };
         try {
@@ -133,15 +136,15 @@ const removeFromGroup = asyncHandler(async (req, res) => {
     const removeGroup = await Chat.findByIdAndUpdate(chatId, {
         $pull: { users: userId },
     },
-     { new: true }).populate("users", "-password").populate("groupAdmin", "-password");
+        { new: true }).populate("users", "-password").populate("groupAdmin", "-password");
 
-     if(!removeGroup){
+    if (!removeGroup) {
         res.status(400);
-        throw new Error ("nOt fFounsd");
+        throw new Error("nOt fFounsd");
 
-     }else{
+    } else {
         res.json(removeGroup);
-     }
+    }
 })
 
 
