@@ -7,7 +7,14 @@ const ProfileModal = ({ user, children }) => {
         <div>
             {children ? (
                 <>
-                    <Text className=" px-4 py-2 cursor-pointer" onClick={onOpen}>My Profile</Text>
+                <span onClick={onOpen}>{children}</span>
+
+                </> ):(
+                   <>
+                   <Text className=" px-4 py-2 cursor-pointer" onClick={onOpen}><FaRegEye /></Text>
+                   </>
+                )}
+                   
                     <Modal isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
@@ -25,11 +32,6 @@ const ProfileModal = ({ user, children }) => {
                             </ModalFooter>
                         </ModalContent>
                     </Modal>
-                </>) : (
-                <div>
-                    <FaRegEye />
-                </div>
-            )}
         </div>
     )
 }

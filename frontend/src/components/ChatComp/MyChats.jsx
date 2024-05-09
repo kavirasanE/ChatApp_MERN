@@ -6,7 +6,7 @@ import ChatLoading from './atomsChatCom/ChatLoading';
 import { getSender } from '../../config/ChatLogics';
 import GroupChatModal from "../ChatComp/atomsChatCom/GroupChatModal";
 
-const MyChats = () => {
+const MyChats = ({ fetchAgain }) => {
   const { user, selectedChat, setSelectedChat, chats, setChats } = useContext(ChatContext);
   const [loggedUser, setLoggedUser] = useState();
 
@@ -17,7 +17,7 @@ const MyChats = () => {
           Authorization: `Bearer ${user.token}`,
         },
       }
-      const {data } = await axios.get("http://localhost:3000/api/chat", config);
+      const { data } = await axios.get("http://localhost:3000/api/chat", config);
       setChats(data);
       console.log(data);
       setLoadingChat()
@@ -25,28 +25,33 @@ const MyChats = () => {
 
     }
   }
-
-
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("UserInfo")));
     fetchChats();
-  }, [])
-
+  }, [fetchAgain])
+  // console.log(chats);
   return (
     <>
-      <Box d={{ base: selectedChat ? "none" : "flex", md: "flex" }} className='flex flex-col p-2 gap-4 items-center w-1/4 border-2 border-gray-400 rounded-lg'>
+      <Box d={{ base: selectedChat ? "none" : "flex", md: "flex" }} className='flex flex-col p-2 gap-4 items-center border-2 border-gray-400 rounded-lg'>
         <Box className=' text-xl flex justify-between gap-3 items-center'>
           My Chats
           <GroupChatModal>
-          <Button className='flex '> New Group Chat</Button>
+            <Button className='flex '> New Group Chat</Button>
           </GroupChatModal>
         </Box>
         <Box className=' overflow-hidden w-full'>
           {chats ? (
             <>
-              <Stack >
+              <Stack overflowY="scroll" >
                 {chats.map((chat) => (
-                  <Box onClick={() => selectedChat(chat)} key={chat._id} className='p-3' bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"} color={selectedChat === chat ? "white" : "black"}>
+                  <Box onClick={() => setSelectedChat(chat)}
+                    cursor="pointer"
+                    bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                    color={selectedChat === chat ? "white" : "black"}
+                    px={3}
+                    py={2}
+                    borderRadius="lg"
+                    key={chat._id}>
                     <Text>
                       {!chat.isGroupChat ? (getSender(loggedUser, chat.users)) : chat.chatName}
                     </Text>
