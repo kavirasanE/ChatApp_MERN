@@ -106,7 +106,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             return;
     
         if (!typing) {
-            setTyping(true);
+            setTyping(false);
             socket.emit("typing", selectedChat._id)
         }
         let lastTypingTime = new Date().getTime();
@@ -116,7 +116,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             var timeNow = new Date().getTime();
             var timeDiff = timeNow - lastTypingTime;
             if (timeDiff >= timerLength && typing) {
-                socket.emit("Stop Typing", selectedChat._id);
+                socket.emit("Stop typing", selectedChat._id);
                 setTyping(false);
             }
         }, timerLength)
@@ -162,13 +162,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     {loading ? (
                         <Spinner alignSelf="center" margin="auto" w={20} h={20} size="xl" />
                     ) : (
-                        <div className=' overflow-y-auto h-[700px] w-full'>
+                        <div className=' overflow-y-auto overflow-hidden h-[700px] w-full'>
                             <ScrollableChat messages={messages} />
                         </div>
                     )}
                     <div className='absolute bottom-14 w-[800px]'>
                         <FormControl>
-                            {/* {istyping ? <div>Loading...</div> : (<> </>)} */}
+                            {istyping ? <div>Loading...</div> : (<></>)}
                             <Input variant="filled" bg="#E0E0E0"
                                 placeholder='Enter a Message'
                                 onKeyDown={sendMessage}

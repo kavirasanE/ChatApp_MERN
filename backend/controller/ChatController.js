@@ -1,6 +1,8 @@
 const Chat = require("../models/chatModel.js");
 const asyncHandler = require("express-async-handler")
 const User = require("../models/UserModel.js")
+
+
 const accessChat = asyncHandler(async (req, res) => {
     const { userId } = req.body;
     console.log("mainId" + req.user._id);
@@ -9,7 +11,6 @@ const accessChat = asyncHandler(async (req, res) => {
         console.log("param not send");
         return res.status(400)
     }
-
 
     let isChat = await Chat.find({
         isGroupChat: false,
@@ -29,7 +30,7 @@ const accessChat = asyncHandler(async (req, res) => {
     } else {
         var chatData = {
             chatName: "sender",
-            isGroupChatfalse,
+            isGroupChat: false,
             users: [req.user._id, userId],
         };
         try {

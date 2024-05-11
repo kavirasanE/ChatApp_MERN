@@ -16,6 +16,17 @@ app.use("/api/user", userRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/message", messageRoutes);
 
+// //---------------------Deployment ---------------------------------//
+
+// const 
+
+
+
+
+
+
+
+
 app.get("/", (req, res) => {
     console.log("server");
     res.send("hii world")
@@ -50,8 +61,11 @@ io.on("connection", (socket) => {
         console.log("User Joined Room : " + room)
     });
 
-    socket.on("typing", (room) => socket.in(room).emit("typing"));
-    socket.on("Stop typing", (room) => socket.in(room).emit("stop typing"));
+    socket.on("typing", (room) => {
+        socket.in(room).emit("typing");
+    });
+
+    socket.on("Stop typing", (room) => socket.in(room).emit("Stop typing"));
 
     socket.on("new Message", (newMessageReceived) => {
         var chat = newMessageReceived.chat;

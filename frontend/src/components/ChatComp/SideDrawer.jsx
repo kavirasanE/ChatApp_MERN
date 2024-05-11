@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 import ChatLoading from './atomsChatCom/ChatLoading';
 import UserListItem from './atomsChatCom/UserListItem';
-import {Spinner} from "@chakra-ui/spinner"
+import { Spinner } from "@chakra-ui/spinner"
 const SideDrawer = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ const SideDrawer = () => {
   const navigate = useNavigate()
   const { user, setSelectedChat, chats, setChats } = useContext(ChatContext);
   const username = user.email.substring(0, 2);
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
@@ -56,18 +56,22 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         }
       }
-      const { data } = await axios.post("http://localhost:3000/api/chat",{ userId },config);
+      const { data } = await axios.post("http://localhost:3000/api/chat", { userId }, config);
 
-      if(!chats.find((c) => c._id === data._id))
-        setChats([data,...chats])
+      if (!chats.find((c) => c._id === data._id))
+        setChats([data, ...chats])
       console.log(chats);
       setSelectedChat(data);
       setLoadingChat(false);
+      onClose();
 
     } catch (err) {
       alert("this is not chat")
     }
   }
+
+
+
   return (
     <div>
       <Box className='flex  flex-row justify-between items-center  bg-gray-300 p-5'>
@@ -121,7 +125,7 @@ const SideDrawer = () => {
                 </>
               ))
             )}
-            {loadingChat && <Spinner/>}
+            {loadingChat && <Spinner />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

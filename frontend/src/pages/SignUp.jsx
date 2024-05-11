@@ -13,7 +13,7 @@ const SignUp = () => {
        <InboxImage />
        </div>
       </div>
-      <Footer/>
+      
     </div>
   );
 };

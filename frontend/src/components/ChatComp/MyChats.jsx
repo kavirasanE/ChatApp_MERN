@@ -8,6 +8,8 @@ import GroupChatModal from "../ChatComp/atomsChatCom/GroupChatModal";
 
 const MyChats = ({ fetchAgain }) => {
   const { user, selectedChat, setSelectedChat, chats, setChats } = useContext(ChatContext);
+  console.log(chats);
+  console.log(chats.users)
   const [loggedUser, setLoggedUser] = useState();
 
   const fetchChats = async () => {
@@ -42,26 +44,26 @@ const MyChats = ({ fetchAgain }) => {
         <Box className=' overflow-hidden w-full'>
           {chats ? (
             <>
-            <div className='overflow-y-auto'>
+              <div className='overflow-y-auto'>
 
-              <Stack   className='w-40 mx-4'>
-                {chats.map((chat) => (
-                  <Box onClick={() => setSelectedChat(chat)}
-                    cursor="pointer"
-                    bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                    color={selectedChat === chat ? "white" : "black"}
-                    px={3}
-                    py={2}
-                    borderRadius="lg"
-                    key={chat._id}>
-                    <Text>
-                      {!chat.isGroupChat ? (getSender(loggedUser, chat.users)) : chat.chatName}
-                    </Text>
-                  </Box>
-                ))}
+                <Stack className='w-40 mx-4'>
+                  {chats.map((chat) => (
+                    <Box onClick={() => setSelectedChat(chat)}
+                      cursor="pointer"
+                      bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                      color={selectedChat === chat ? "white" : "black"}
+                      px={3}
+                      py={2}
+                      borderRadius="lg"
+                      key={chat._id}>
+                      <Text>
+                        {!chat.isGroupChat ? (getSender(loggedUser, chat.users)) : chat.chatName}
+                      </Text>
+                    </Box>
+                  ))}
 
-              </Stack>
-            </div>
+                </Stack>
+              </div>
             </>
           ) : (
             <>

@@ -14,7 +14,7 @@ const SignIn = () => {
        </div>
        
       </div>
-      <Footer/>
+    
     </div>
   )
 }

@@ -61,6 +61,7 @@ const GroupChatModal = ({ children }) => {
             onClose();
         }
         catch (err) {
+            alert("more than 2 users should be there")
             console.log(err)
         }
     }
