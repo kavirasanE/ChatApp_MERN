@@ -19,7 +19,34 @@ app.use("/api/message", messageRoutes);
 app.get("/", (req, res) => {
     console.log("server");
     res.send("hii world")
+});
+
+
+const server = app.listen(port, console.log("server started"))
+
+const io = require("socket.io")(server, {
+    // if user didnt send any message for 60s this will close the connection since for reducing bandwidth
+    pingTimeout: 60000,
+    cors: {
+        origin: "http://localhost:5173",
+    }
 })
 
-app.listen(port, console.log("server started"))
+io.on("connection", (socket) => {
+    console.log("connected to Socket.io");
+    socket.on("setup", (userData) => {
+        socket.join(userData._id);
+        console.log(userData._id);
+        socket.emit("connected")
+    });
+
+    socket.on("join chat", (room) => {
+        socket.join(room);
+        console.log("User Joined Room:" + room)
+    });
+});
+
+
+
+
 

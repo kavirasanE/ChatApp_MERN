@@ -1,20 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ChatContext } from '../../Context/ChatProvider';
-import { Text, IconButton, Box, Spinner, FormControl, Input } from '@chakra-ui/react';
+import { Text, IconButton, Box, Spinner, FormControl, Input, useEditable } from '@chakra-ui/react';
 import { MdArrowBack } from "react-icons/md";
 import ProfileModal from './atomsChatCom/ProfileModal';
 import { getSender, getSenderFull } from '../../config/ChatLogics';
 import UpdateGroupChatModal from "./UpdateGroupChatModal";
 import axios from 'axios';
 import ScrollableChat from "../ScrollableChat";
+import io from "socket.io-client"
 
+
+const ENDPOINT = "http://localhost:3000";
+
+var socket, selectedChatCompare;
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const { user, selectedChat, setSelectedChat } = useContext(ChatContext);
 
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState('');
-
+    const [socketConnected, setSocketConnected] = useState(false)
     const fetchMessages = async (req, res) => {
         if (!selectedChat)
             return;
@@ -28,7 +33,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             const { data } = await axios.get(`http://localhost:3000/api/message/${selectedChat._id}`, config)
             console.log(data);
             setMessages(data);
-            setLoading(false)
+            setLoading(false);
+            socket.emit("join chat", selectedChat._id);
             console.log(data);
         }
         catch (err) {
@@ -69,6 +75,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const typingHandler = (e) => {
         setNewMessage(e.target.value);
     };
+    useEffect(() => {
+        socket = io(ENDPOINT);
+        socket.emit("setup", user);
+        socket.on("connnection", () => setSocketConnected(true))
+    }, [])
+
+
 
     return (
         <>
@@ -107,24 +120,24 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                             </>
                         )}
                     </Text>
-                   
-                        {loading ? (
-                            <Spinner alignSelf="center" margin="auto" w={20} h={20} size="xl" />
-                        ) : (
-                            <div className='overflow-y-auto max-h-[300px] w-full'>
-                                <ScrollableChat messages={messages} />
-                            </div>
-                        )}
-                        <div className='absolute bottom-14 w-[800px]'>
-                            <FormControl>
-                                <Input variant="filled" bg="#E0E0E0"
-                                    placeholder='Enter a Message'
-                                    onKeyDown={sendMessage}
-                                    onChange={typingHandler}
-                                    value={newMessage} />
-                            </FormControl>
+
+                    {loading ? (
+                        <Spinner alignSelf="center" margin="auto" w={20} h={20} size="xl" />
+                    ) : (
+                        <div className='overflow-y-auto max-h-[300px] w-full'>
+                            <ScrollableChat messages={messages} />
                         </div>
-                    
+                    )}
+                    <div className='absolute bottom-14 w-[800px]'>
+                        <FormControl>
+                            <Input variant="filled" bg="#E0E0E0"
+                                placeholder='Enter a Message'
+                                onKeyDown={sendMessage}
+                                onChange={typingHandler}
+                                value={newMessage} />
+                        </FormControl>
+                    </div>
+
                 </>
             ) : (
                 <>
