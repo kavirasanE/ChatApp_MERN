@@ -4,10 +4,10 @@ import { FaRegEye } from "react-icons/fa";
 const ProfileModal = ({ user, children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
-        <div>
+        <>
             {children ? (
                 <>
-                <span onClick={onOpen}>{children}</span>
+                <div onClick={onOpen}>{children}</div>
 
                 </> ):(
                    <>
@@ -32,7 +32,7 @@ const ProfileModal = ({ user, children }) => {
                             </ModalFooter>
                         </ModalContent>
                     </Modal>
-        </div>
+        </>
     )
 }
 

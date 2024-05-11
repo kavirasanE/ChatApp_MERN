@@ -42,7 +42,9 @@ const MyChats = ({ fetchAgain }) => {
         <Box className=' overflow-hidden w-full'>
           {chats ? (
             <>
-              <Stack overflowY="scroll" >
+            <div className='overflow-y-auto'>
+
+              <Stack   className='w-40 mx-4'>
                 {chats.map((chat) => (
                   <Box onClick={() => setSelectedChat(chat)}
                     cursor="pointer"
@@ -59,6 +61,7 @@ const MyChats = ({ fetchAgain }) => {
                 ))}
 
               </Stack>
+            </div>
             </>
           ) : (
             <>

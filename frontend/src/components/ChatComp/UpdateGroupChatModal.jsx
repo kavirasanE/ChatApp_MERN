@@ -25,7 +25,7 @@ import UserBadgeItem from "./UserBadgeLayout"
 import UserListItem from './atomsChatCom/UserListItem';
 
 
-const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
+const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [groupChatName, setGroupChatName] = useState();
@@ -143,10 +143,10 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
             const { data } = await axios.put(`http://localhost:3000/api/chat/groupremove`, {
                 chatId: selectedChat._id,
                 userId: user1._id,
-            },config);
-            user1._id = user._id ?setSelectedChat() : setSelectedChat(data);
+            }, config);
+            user1._id = user._id ? setSelectedChat() : setSelectedChat(data);
             setFetchAgain(!fetchAgain);
-            fetchMessage();
+            fetchMessages();
             setLoading(false);
         }
         catch (err) {
