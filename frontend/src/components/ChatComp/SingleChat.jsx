@@ -19,7 +19,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [newMessage, setNewMessage] = useState('');
-    const [socketConnected, setSocketConnected] = useState(false)
+    const [socketConnected, setSocketConnected] = useState(false);
+    const [typing, setTyping] = useState(false);
+    const [istyping, setIstyping] = useState(false);
+
+
+    useEffect(() => {
+        socket = io(ENDPOINT);
+        socket.emit("setup", user);
+        socket.on("connected", () => setSocketConnected(true));
+        socket.on('typing', () => setTyping(true))
+        socket.on('Stop typing', () => setTyping(false))
+    }, [])
+
     const fetchMessages = async (req, res) => {
         if (!selectedChat)
             return;
@@ -34,6 +46,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             console.log(data);
             setMessages(data);
             setLoading(false);
+
             socket.emit("join chat", selectedChat._id);
             console.log(data);
         }
@@ -44,12 +57,26 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
 
 
+
     useEffect(() => {
         fetchMessages();
+        selectedChatCompare = selectedChat;
     }, [selectedChat])
+
+    useEffect(() => {
+        socket.on("message received", (newMessageReceived) => {
+            if (!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id) {
+                //give Notification
+            } else {
+                setMessages([...messages, newMessageReceived])
+            }
+        })
+    })
+
 
     const sendMessage = async (e) => {
         if (e.key === "Enter" && newMessage) {
+            socket.emit("stop Typing", selectedChat._id)
             try {
                 const config = {
                     headers: {
@@ -63,6 +90,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     chatId: selectedChat._id,
                 }, config);
                 console.log(data);
+                socket.emit("new Message", data)
                 setMessages(prevMessages => [...prevMessages, data]);
                 setNewMessage('');
             } catch (err) {
@@ -74,15 +102,25 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
     const typingHandler = (e) => {
         setNewMessage(e.target.value);
-    };
-    useEffect(() => {
-        socket = io(ENDPOINT);
-        socket.emit("setup", user);
-        socket.on("connnection", () => setSocketConnected(true))
-    }, [])
-
-
-
+        if (!socketConnected) 
+            return;
+    
+        if (!typing) {
+            setTyping(true);
+            socket.emit("typing", selectedChat._id)
+        }
+        let lastTypingTime = new Date().getTime();
+        var timerLength = 3000;
+        console.log("ffff")
+        setTimeout(() => {
+            var timeNow = new Date().getTime();
+            var timeDiff = timeNow - lastTypingTime;
+            if (timeDiff >= timerLength && typing) {
+                socket.emit("Stop Typing", selectedChat._id);
+                setTyping(false);
+            }
+        }, timerLength)
+    }
     return (
         <>
             {selectedChat ? (
@@ -124,17 +162,18 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                     {loading ? (
                         <Spinner alignSelf="center" margin="auto" w={20} h={20} size="xl" />
                     ) : (
-                        <div className='overflow-y-auto max-h-[300px] w-full'>
+                        <div className=' overflow-y-auto h-[700px] w-full'>
                             <ScrollableChat messages={messages} />
                         </div>
                     )}
                     <div className='absolute bottom-14 w-[800px]'>
                         <FormControl>
+                            {/* {istyping ? <div>Loading...</div> : (<> </>)} */}
                             <Input variant="filled" bg="#E0E0E0"
                                 placeholder='Enter a Message'
                                 onKeyDown={sendMessage}
                                 onChange={typingHandler}
-                                value={newMessage} />
+                                value={newMessage} istyping={istyping} />
                         </FormControl>
                     </div>
 

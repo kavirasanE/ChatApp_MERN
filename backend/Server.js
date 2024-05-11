@@ -44,6 +44,28 @@ io.on("connection", (socket) => {
         socket.join(room);
         console.log("User Joined Room:" + room)
     });
+
+    socket.on("join chat", (room) => {
+        socket.join(room);
+        console.log("User Joined Room : " + room)
+    });
+
+    socket.on("typing", (room) => socket.in(room).emit("typing"));
+    socket.on("Stop typing", (room) => socket.in(room).emit("stop typing"));
+
+    socket.on("new Message", (newMessageReceived) => {
+        var chat = newMessageReceived.chat;
+        if (!chat.users) {
+            return console.log("Chat user is not defined")
+        }
+        chat.users.forEach(user => {
+            if (user._id == newMessageReceived.sender._id) {
+                return;
+            }
+            //in means inside that users room send that message
+            socket.in(user._id).emit("message received", newMessageReceived)
+        })
+    })
 });
 
 

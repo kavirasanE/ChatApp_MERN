@@ -3,7 +3,7 @@ import ScrollableFeed from 'react-scrollable-feed'
 import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../config/ChatLogics'
 import { ChatContext } from '../Context/ChatProvider'
 import { Avatar, Tooltip } from '@chakra-ui/react'
-const ScrollableChat = ({ messages }) => {
+const ScrollableChat = ({ messages ,istyping }) => {
     const { user } = useContext(ChatContext);
     return (
         <ScrollableFeed >
@@ -24,6 +24,7 @@ const ScrollableChat = ({ messages }) => {
                     }}
                         className='rounded-md px-2  py-2 m-2 '>
                         {m.content}
+                        {istyping ? <div>Loading...</div> : (<> </>)}
                     </span>
                 </div>
             ))}
