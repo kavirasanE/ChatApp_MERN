@@ -1,3 +1,29 @@
 go to AWS --  Create an Account -- go to EC2 services --  in sidebar click Instaces ---- click Launch Instance 
-got to github repository ---- click settings --
+
+go to github repository ---- click settings -- click secrets and Variables ---- Actions ---- update password for the database and any other thing
+
+go to Mongo DB website and to your database --- network access -- edit the ip address --- allow access from any where (if not there search for anyither ip address)
+
+go to aws and click the created instance link ----- click connect ----- at the bottom of the page click the connect it will open new window 
+
+in new tab an UBUNTU (like putty it will open) 
+Use below commands to install Docker on AWS EC2:
+
+sudo apt-get update
+sudo apt-get install docker.io -y
+sudo systemctl start docker
+sudo docker run hello-world
+docker ps
+sudo chmod 666 /var/run/docker.sock
+sudo systemctl enable docker
+docker --version
+
+
+got to ----- google and search ---- "github action runner as a service" ----- 
+
+
+
+
+
+
 
