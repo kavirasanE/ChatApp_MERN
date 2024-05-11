@@ -19,7 +19,14 @@ sudo systemctl enable docker
 docker --version
 
 
-got to ----- google and search ---- "github action runner as a service" ----- 
+go to github repo --- settings -- Actions -- runners -- click on the  new self hosted Runner -- as we are using UBUNTU it is an Linux so we click on the LINUX ---- 
+copy the commands and paste in the uBUNTU cmd --- ******** press ENTER FOR THE runner group and give a name only for the runner Name **********
+
+./run.sh ---  give this command and see the connection to the github is ok
+
+go to ----- google and search ---- "github action runner as a service" ----- 
+this is used for running the UBUNTU in the server without stoping ----
+copy and paste the commands in the UBUNTU  -----  sudo ./svc.sh install --- sudo ./svc.sh start
 
 
 
