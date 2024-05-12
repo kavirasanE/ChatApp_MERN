@@ -1,0 +1,17 @@
+name: Deploy Node Application
+
+on:
+push:
+branches:
+  - main
+
+  jobs:
+  build:
+  runs-on: ubuntu-latest
+  steps:
+  - name: Checkout Source
+    uses: action/checkout@v4
+    - name: Login to docker hub
+    run: docker Login -u ${{ secrets. }} -p
+
+
