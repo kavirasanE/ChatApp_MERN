@@ -74,7 +74,7 @@ const SideDrawer = () => {
 
   return (
     <div>
-      <Box className='flex  flex-row justify-between items-center  bg-gray-300 p-5'>
+      <Box className='flex  flex-row justify-between items-center  bg-gray-300 lg:px-24 '>
         <Tooltip label="Search Users to chat " hasArrow placement='bottom-end'>
           <Button variant="ghost">
             <i className="fas fa-search"></i>
@@ -93,7 +93,7 @@ const SideDrawer = () => {
           </Menu>
           <Menu>
             <MenuButton>
-              <Avatar className='cursor-pointer' name={username} />
+              <Avatar className='cursor-pointer' name={username} height={5} width={5} padding={4}/>
             </MenuButton>
             <MenuList>
               <ProfileModal user={user}>
