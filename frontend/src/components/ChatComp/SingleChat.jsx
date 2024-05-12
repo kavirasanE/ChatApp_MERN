@@ -21,7 +21,8 @@ const ENDPOINT = "http://localhost:3000";
 
 var socket, selectedChatCompare;
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
-  const { user, selectedChat, setSelectedChat } = useContext(ChatContext);
+  const { user, selectedChat, setSelectedChat, notification, setNotification } =
+    useContext(ChatContext);
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -51,12 +52,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         `http://localhost:3000/api/message/${selectedChat._id}`,
         config
       );
-      console.log(data);
+      
       setMessages(data);
       setLoading(false);
 
       socket.emit("join chat", selectedChat._id);
-      console.log(data);
+     
     } catch (err) {
       alert("Failed to Load the Message");
     }
@@ -66,7 +67,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     fetchMessages();
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
-
+       console.log(notification ,"-------------------")
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
       if (
@@ -74,6 +75,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         selectedChatCompare._id !== newMessageReceived.chat._id
       ) {
         //give Notification
+        if (!notification.includes(newMessageReceived)) {
+          setNotification([newMessageReceived, ...notification]);
+          setFetchAgain(!fetchAgain)
+        }
       } else {
         setMessages([...messages, newMessageReceived]);
       }
@@ -82,7 +87,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const sendMessage = async (e) => {
     if (e.key === "Enter" && newMessage) {
-      socket.emit("stop Typing", selectedChat._id);
+      socket.emit("Stop Typing", selectedChat._id);
       try {
         const config = {
           headers: {
@@ -99,7 +104,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
           config
         );
-        console.log(data);
         socket.emit("new Message", data);
         setMessages((prevMessages) => [...prevMessages, data]);
         setNewMessage("");
@@ -120,7 +124,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
     let lastTypingTime = new Date().getTime();
     var timerLength = 3000;
-    console.log("ffff");
+   
     setTimeout(() => {
       var timeNow = new Date().getTime();
       var timeDiff = timeNow - lastTypingTime;
@@ -130,13 +134,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     }, timerLength);
   };
+
+
   return (
     <>
       {selectedChat ? (
         <>
           <Text
             fontSize={{ base: "28px", md: "30px" }}
-            
             px={2}
             w="100%"
             fontFamily="Work sans"
@@ -177,7 +182,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <ScrollableChat messages={messages} />
             </div>
           )}
-          <div >
+          <div>
             <FormControl>
               {istyping ? <div>Loading...</div> : <></>}
               <Input
