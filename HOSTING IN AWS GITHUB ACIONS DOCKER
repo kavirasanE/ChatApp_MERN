@@ -24,11 +24,23 @@ copy the commands and paste in the uBUNTU cmd --- ******** press ENTER FOR THE r
 
 ./run.sh ---  give this command and see the connection to the github is ok
 
-go to ----- google and search ---- "github action runner as a service" ----- 
+go to ----- google and search ---- "github action runner as a service"   Configuring the self-hosted runner application as a service ----- 
 this is used for running the UBUNTU in the server without stoping ----
 copy and paste the commands in the UBUNTU  -----  sudo ./svc.sh install --- sudo ./svc.sh start
 
 
+go to vs code --- in backend folder 
+
+create name as "DockerFile" ---- enter this 
+FROM node:alpine3.18
+WORKDIR /app
+COPY package.json ./
+RUN  npm install
+COPY . .
+EXPOSE  3000
+CMD [ "npm" ,"run","start" ]
+
+create .github folder  --- workflows folder --- inside it create file cicd.yml
 
 
 
