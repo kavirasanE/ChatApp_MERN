@@ -1,0 +1,48 @@
+go to AWS --  Create an Account -- go to EC2 services --  in sidebar click Instaces ---- click Launch Instance 
+
+go to github repository ---- click settings -- click secrets and Variables ---- Actions ---- update password for the database and any other thing
+
+go to Mongo DB website and to your database --- network access -- edit the ip address --- allow access from any where (if not there search for anyither ip address)
+
+go to aws and click the created instance link ----- click connect ----- at the bottom of the page click the connect it will open new window 
+
+in new tab an UBUNTU (like putty it will open) 
+Use below commands to install Docker on AWS EC2:
+
+sudo apt-get update
+sudo apt-get install docker.io -y
+sudo systemctl start docker
+sudo docker run hello-world
+docker ps
+sudo chmod 666 /var/run/docker.sock
+sudo systemctl enable docker
+docker --version
+
+
+go to github repo --- settings -- Actions -- runners -- click on the  new self hosted Runner -- as we are using UBUNTU it is an Linux so we click on the LINUX ---- 
+copy the commands and paste in the uBUNTU cmd --- ******** press ENTER FOR THE runner group and give a name only for the runner Name **********
+
+./run.sh ---  give this command and see the connection to the github is ok
+
+go to ----- google and search ---- "github action runner as a service"   Configuring the self-hosted runner application as a service ----- 
+this is used for running the UBUNTU in the server without stoping ----
+copy and paste the commands in the UBUNTU  -----  sudo ./svc.sh install --- sudo ./svc.sh start
+
+
+go to vs code --- in backend folder 
+
+create name as "DockerFile" ---- enter this 
+FROM node:alpine3.18
+WORKDIR /app
+COPY package.json ./
+RUN  npm install
+COPY . .
+EXPOSE  3000
+CMD [ "npm" ,"run","start" ]
+
+create .github folder  --- workflows folder --- inside it create file cicd.yml
+
+
+
+
+
