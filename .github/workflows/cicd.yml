@@ -19,7 +19,7 @@ jobs:
  
   deploy:
     needs: build
-    runs-on: self-hosted 
+    runs-on: ubuntu-latest
     steps:
       - name: Pull image from docker hub
         run: docker pull kavirasan/chatapp:latest 
