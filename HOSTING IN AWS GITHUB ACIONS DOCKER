@@ -40,7 +40,11 @@ COPY . .
 EXPOSE  3000
 CMD [ "npm" ,"run","start" ]
 
-create .github folder  --- workflows folder --- inside it create file cicd.yml
+create .github folder  --- workflows folder --- inside it create file cicd.yml ---- write the steps 
+
+
+then to expose the port number 3000  go to your  aws ec2 instance ---- go to security --- click the security groups link -- create two sepereate port for front and back  and save rules
+
 
 
 
