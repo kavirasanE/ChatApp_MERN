@@ -21,12 +21,6 @@ app.use("/api/message", messageRoutes);
 // const 
 
 
-
-
-
-
-
-
 app.get("/", (req, res) => {
     console.log("server");
     res.send("hii world")
