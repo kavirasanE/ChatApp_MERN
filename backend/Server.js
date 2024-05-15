@@ -23,7 +23,7 @@ app.use("/api/message", messageRoutes);
 
 app.get("/", (req, res) => {
     console.log("server");
-    res.send("hii world")
+    res.send("hii world connect to cloud pls")
 });
 
 
