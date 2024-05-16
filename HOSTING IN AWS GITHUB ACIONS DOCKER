@@ -12,6 +12,8 @@ npm install
 npm install nodemon
 #!/bin/bash
 
+# to delete a folder 
+rm -rf ChatApp_MERN
 
 # Create and navigate to a new directory
 mkdir anyname
